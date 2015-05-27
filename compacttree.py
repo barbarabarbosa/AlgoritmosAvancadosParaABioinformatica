@@ -64,7 +64,7 @@ class CreateTree:
         #return res
         
         
-    def InitialSearch(self):
+    def InitialSearch(self):#método para procurar em todos os caminhos provenientes da raiz
         res=[]
         for k in self.nodes[0][1].keys():#raiz possui muitos nodos ligados
             search=self.nobiforca(self.nodes[0][1][k])
@@ -75,7 +75,16 @@ class CreateTree:
 #ok, até aqui temos as folhas onde existem caminhos diretos da raiz ate elas... e agora? 
                 
             
+    def encurta(self):
+        root_to_leafs=self.InitialSearch()
+        word=""
+        for node in range(len(self.num)):
+            for leaf in root_to_leafs:
+                if self.nodes[node][0]>=0 and self.nodes[node][0]==leaf:#corresponde a uma folha, sendo aceites apenas as folhas sem biforcações
+                    self.nodes                
+            
                 
+        
                 
             
             
