@@ -51,24 +51,30 @@ class CreateTree:
             
 
     def nobiforca(self,node=0):#procura por caminhos nao bifurcados dado um nodo.
-        res=[]
         if len(self.nodes[node][1].keys())==0:#if len(self.nodes[node][1].keys())==0:#atingimos uma folha
-            res.append(self.nodes[node][0])#numero da folha colocado na lista
-            return res[0]#cada no retornara apenas uma folha no caso de ser um caminho nao biforcado
+            res=int(self.nodes[node][0])#numero da folha colocado na lista
+            print res
+            return res
+            #cada no retornara apenas uma folha no caso de ser um caminho nao biforcado
         #for k in self.nodes[0][1].keys():
         elif len(self.nodes[node][1].keys())==1:#tem um no destino
-            new_node=self.nodes[node][1].values()[0]#vai buscar o elemento a lista dos valores (neste caso é apenas um, por isso retira-se o primeiro)
-            self.nobiforca(new_node)
+            new_node=self.nodes[node][1].values()
+            new_node2=new_node[0]#vai buscar o elemento a lista dos valores (neste caso é apenas um, por isso retira-se o primeiro)
+            #print (new_node2)
+            self.nobiforca(new_node2)
         else:
-            return None#encontra uma bifurcação
+            return False#encontra uma bifurcação
         #return res
         
         
     def InitialSearch(self):#método para procurar em todos os caminhos provenientes da raiz
         res=[]
         for k in self.nodes[0][1].keys():#raiz possui muitos nodos ligados
+            #print k
+            #print self.nodes[0][1][k]
             search=self.nobiforca(self.nodes[0][1][k])
-            if search !=None:
+            #print search
+            if search is not False:
                 res.append(search)
         return res
                 
@@ -78,12 +84,27 @@ class CreateTree:
     def encurta(self):
         root_to_leafs=self.InitialSearch()
         word=""
-        for node in range(len(self.num)):
+        for node in self.nodes.keys():
             for leaf in root_to_leafs:
                 if self.nodes[node][0]>=0 and self.nodes[node][0]==leaf:#corresponde a uma folha, sendo aceites apenas as folhas sem biforcações
-                    self.nodes                
+                    self.nodes             
             
-                
+            
+            
+    def getPredecessors(self,leafnode):
+        word=""
+        num_node=-1 
+
+        while num_node!=0:
+            for node in self.nodes.keys():
+                for letter in self.nodes[node][1]:
+                    destin_node=self.nodes[node][1][letter]
+    
+                    if destin_node==leafnode:
+                        num_node=destin_node
+                        word=str(self.nodes[node][0])
+                        #insere a letra na ultima posicao da lista (o texto vai do fim para o inicio)
+        print word
         
                 
             
@@ -151,7 +172,7 @@ if __name__=='__main__':
         st.suffixTrieFromSeq(seq)
     #    print st.findPattern("TA")
         print st.InitialSearch()
-        #st.print_tree()       
+        print st.getPredecessors(9)#st.print_tree()       
         
         
     test2()
