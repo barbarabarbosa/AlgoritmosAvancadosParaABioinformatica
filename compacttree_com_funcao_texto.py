@@ -117,14 +117,21 @@ class CreateTree:
             
         
 
-    def text (self,init,final):#distancia entre nos inicial e final
+    def text_with_cut (self,init,final):#distancia entre nos inicial e final
         text=""
-        while init!=final:
-            letter=self.nodes[init][1].keys()[0]
-            text=letter
-            destin=self.nodes[init][1].values()
+        letter=self.nodes[init][1].keys()[0]
+        text+=letter
+        destin0=self.nodes[init][1].values()
+        init_cicle_node=destin0[0]
+        while init_cicle_node!=final:
+            letter2=self.nodes[init_cicle_node][1].keys()[0]
+            text+=letter2
+            destin=self.nodes[init_cicle_node][1].values()
             destin_node=destin[0]
-            init=destin_node
+            del self.nodes[init_cicle_node]            
+            init_cicle_node=destin_node
+        if len(self.nodes[final][1].keys())==0:
+            text+="$"
         texto=text.strip(",")
         if len(texto)>=2:
             return texto
@@ -135,7 +142,12 @@ class CreateTree:
             
             
             
-    def encurtar()
+    def encurtar(self,init,final):
+        self.nodes[init][1]={}
+        text=self.text_with_cut(init,final)        
+        self.nodes[init][1][text]=final
+        
+        
             
             
             
